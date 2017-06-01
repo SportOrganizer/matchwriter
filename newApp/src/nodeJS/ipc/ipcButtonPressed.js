@@ -26,9 +26,11 @@ ipc.on('buttonPressed',function(event, data){
 					var nextWindow = new BrowserWindow({
 						x: externalDisplays[i].bounds.x + 50,
 						y: externalDisplays[i].bounds.y + 50,
-						//fullscreen: true //TODO
+						fullscreen: true
 					});
 
+					nextWindow.setMenu(null);
+					
 					nextWindow.displayId = externalDisplays[i].id;
 
 					nextWindow.on('close', function() { //   <---- Catch close event

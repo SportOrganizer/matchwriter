@@ -1,6 +1,8 @@
 const matchWriterApp = angular.module('matchWriter', []);
 
 matchWriterApp.controller('matchWriterController', function($rootScope, $scope, TimerService) {
+	$('#showProjector').remove();
+
 	$scope.seasonTournamentMatches = null;
 
 	$scope.time = "00:00";
@@ -54,16 +56,13 @@ matchWriterApp.controller('matchWriterController', function($rootScope, $scope, 
 	})));
 	
 	$scope.gameLoaded = function() {
-		//TODO odkomentovať a dať preč testovacie nastavenia
-		/*ipc.send('getGoalTypes', {match: $scope.selectedMatch.id,
+		ipc.send('getGoalTypes', {match: $scope.selectedMatch.id,
 								  game: $scope.selectedMatch.seasonTournament.id});
-		*/ipc.send('getPenaltyTypes', {match: $scope.selectedMatch.id,
+		
+		ipc.send('getPenaltyTypes', {match: $scope.selectedMatch.id,
 								  game: $scope.selectedMatch.seasonTournament.id});
 		ipc.send('getTimeOutLength', {match: $scope.selectedMatch.id,
 								  game: $scope.selectedMatch.seasonTournament.id});
-
-		$scope.goalTypes = config.testData.goalTypes;//TODO zakomentovať
-		$scope.timeOutLength = config.testData.seasonTournamentTimeOutLength; //TODO zakomentovať
 
 		ipc.send('getGamePeriods', {match: $scope.selectedMatch.id,
 									game: $scope.selectedMatch.seasonTournament.id});
@@ -215,8 +214,6 @@ matchWriterApp.controller('matchWriterController', function($rootScope, $scope, 
 		}
         	
 	    sendWebSockets(JSON.stringify(obj)); //TODO
-	    console.log(obj);
-
 	}
 
 	$scope.selectTeam = function(data) {
@@ -593,20 +590,29 @@ matchWriterApp.controller('matchWriterController', function($rootScope, $scope, 
 
 		var selectedTeam = null;
 		var teamName = null;
-
+		var position = "home";
 		if($scope.choosedTeam == $scope.selectedMatch.homeTeam.id) {
 			$scope.homeScore++;
 			$scope.addHomeActivity($scope.mainTimer.getTime(), "Gól", text);
 
 			selectedTeam = $scope.selectedMatch.homeTeam.id;
 			teamName = $scope.selectedMatch.homeTeam.team.fullName;
+
+			if($scope.homePenaltyTimes.length > 0) {
+				$scope.homePenaltyTimes.shift(); 
+			}
 		}
 
 		if($scope.choosedTeam == $scope.selectedMatch.awayTeam.id) {
 			$scope.awayScore++;
+			position = "away";
 			$scope.addAwayActivity($scope.mainTimer.getTime(), "Gól", text);
 			selectedTeam = $scope.selectedMatch.awayTeam.id;
 			teamName = $scope.selectedMatch.awayTeam.team.fullName;
+
+			if($scope.homePenaltyTimes.length > 0) {
+				$scope.homePenaltyTimes.shift(); 
+			}
 		}
 
 		$("#showGoal").modal("hide");
@@ -651,7 +657,8 @@ matchWriterApp.controller('matchWriterController', function($rootScope, $scope, 
 								path: goalPlayer.photo.path,
 							    assist1Player: assist1Name,
 								assist2Player: assist2Name,
-								goalTeam: teamName}
+								goalTeam: teamName,
+								position: position}
 		);
 
 	}

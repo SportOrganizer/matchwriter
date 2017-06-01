@@ -214,3 +214,26 @@
 		}
 	}
 }
+
+@media screen and (max-width:968px) {
+	.liveScore .penalties .time {
+		font-size: 100px;
+	}
+	.liveScore .score {
+		font-size: 200px !important;
+	}
+
+	.liveScore .teamName {
+		font-size:35px;
+	}
+}
+
+@media screen and (max-width:1200px) {
+	.liveScore .score {
+		font-size: 280px;
+	}
+
+	.liveScore .teamName {
+		font-size:45px;
+	}
+}

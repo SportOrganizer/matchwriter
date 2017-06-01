@@ -20,7 +20,7 @@ ipc.on('newData',function(event, data){
         case "penalty":
             $scope.$apply(function() {
                 $scope.penaltyPlayer = "#" + data.data.number + " " + data.data.name;
-                $scope.penaltyPhoto = data.data.path;
+                $scope.penaltyPhoto = checkLogo(data.data.path, config.urls.defaultPlayer);
                 $scope.penaltyType = data.data.penalty;
                 $scope.penaltyTeam = data.data.team;
             });
@@ -37,9 +37,19 @@ ipc.on('newData',function(event, data){
             $scope.$apply(function() {
                 $scope.goalPlayer = data.data.goalPlayer;
                 $scope.goalTeam = data.data.goalTeam;
-                $scope.goalPhoto = data.data.path;
+                $scope.goalPhoto = checkLogo(data.data.path, config.urls.defaultPlayer);
                 $scope.assist1Player = data.data.assist1Player;
                 $scope.assist2Player = data.data.assist2Player;
+
+                if(data.data.position == "home") {
+                    if($scope.homePenaltyTimes.length > 0) {
+                        $scope.homePenaltyTimes.shift(); 
+                    }
+                } else {
+                    if($scope.awayPenaltyTimes.length > 0) {
+                        $scope.awayPenaltyTimes.shift(); 
+                    }
+                }
             });
 
             showGoal();

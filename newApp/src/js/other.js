@@ -30,7 +30,7 @@ function normalizeNumber(nmb) {
 }
 
 function checkLogo(oldUrl, replacement) {
-	if(oldUrl == undefined)
+    if(oldUrl == undefined)
         oldUrl = replacement;
     else {
         var myUrl = oldUrl;
@@ -39,20 +39,18 @@ function checkLogo(oldUrl, replacement) {
             {
                 url: (config.urls.documents + myUrl),
                 type:'HEAD',
+                async: false,
                 error: function() {
-                    showError("Upozornenie!","Nastala neočakávaná chyba na serveri.<br> Je možné, že program nebude fungovať správne.");
+                    //showError("Upozornenie!","Nastala neočakávaná chyba na serveri.<br> Je možné, že program nebude fungovať správne.");
+                    console.log("Chyba načítana obrázkov zo servera!");
+
+                    oldUrl = replacement;       
                     
-                    var $scope = angular.element(appElement).scope();
-                    $scope.$apply(function() {
-                        for(var i in tournaments.results) {
-                            oldUrl = replacement;       
-                        }
-                    });
                 }
             }
         );
     }
-
+    console.log(oldUrl);
     return oldUrl;
 }
 

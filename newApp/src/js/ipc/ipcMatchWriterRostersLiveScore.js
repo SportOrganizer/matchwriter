@@ -3,9 +3,6 @@ ipc.on("matchWriterRostersLive", function(evt, matchRoster) {
     var appElement = document.querySelector('[ng-app=liveScore]');
     var $scope = angular.element(appElement).scope();
 
-    var homeTeamPlayers = [];
-    var awayTeamPlayers = [];
-
     if($scope == null) 
         return;
     

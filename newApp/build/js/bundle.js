@@ -243,9 +243,6 @@ ipc.on("matchWriterRostersLive", function(evt, matchRoster) {
     var appElement = document.querySelector('[ng-app=liveScore]');
     var $scope = angular.element(appElement).scope();
 
-    var homeTeamPlayers = [];
-    var awayTeamPlayers = [];
-
     if($scope == null) 
         return;
     
@@ -283,7 +280,7 @@ ipc.on('newData',function(event, data){
         case "penalty":
             $scope.$apply(function() {
                 $scope.penaltyPlayer = "#" + data.data.number + " " + data.data.name;
-                $scope.penaltyPhoto = data.data.path;
+                $scope.penaltyPhoto = checkLogo(data.data.path, config.urls.defaultPlayer);
                 $scope.penaltyType = data.data.penalty;
                 $scope.penaltyTeam = data.data.team;
             });
@@ -300,9 +297,19 @@ ipc.on('newData',function(event, data){
             $scope.$apply(function() {
                 $scope.goalPlayer = data.data.goalPlayer;
                 $scope.goalTeam = data.data.goalTeam;
-                $scope.goalPhoto = data.data.path;
+                $scope.goalPhoto = checkLogo(data.data.path, config.urls.defaultPlayer);
                 $scope.assist1Player = data.data.assist1Player;
                 $scope.assist2Player = data.data.assist2Player;
+
+                if(data.data.position == "home") {
+                    if($scope.homePenaltyTimes.length > 0) {
+                        $scope.homePenaltyTimes.shift(); 
+                    }
+                } else {
+                    if($scope.awayPenaltyTimes.length > 0) {
+                        $scope.awayPenaltyTimes.shift(); 
+                    }
+                }
             });
 
             showGoal();
@@ -372,13 +379,9 @@ ipc.on("seasonTournamentMatches", function(evt, matches) {
         $scope.seasonTournamentMatches = matches;
 
         for(var i in $scope.seasonTournamentMatches) {
-        	//Set date
-        	var myDate = new Date($scope.seasonTournamentMatches[i].startTime);
-        	var myTime = myDate.toTimeString().split(' ')[0].split(':');
-        	myTime = myTime[0] + ":" + myTime[1];
-        	myDate = myDate.toLocaleDateString() + " - " ;
+        	var myDate =  $scope.seasonTournamentMatches[i].startTime;
 
-        	$scope.seasonTournamentMatches[i].startTime = myDate + myTime;
+        	$scope.seasonTournamentMatches[i].startTime = myDate;
 
         	//Set home logo
             $scope.seasonTournamentMatches[i].homeTeam.logo.path = checkLogo($scope.seasonTournamentMatches[i].homeTeam.logo.path, config.urls.defaultTournamentLogo);
@@ -672,6 +675,8 @@ liveScoreApp.controller('liveScoreController', function($rootScope, $scope, Time
 const matchWriterApp = angular.module('matchWriter', []);
 
 matchWriterApp.controller('matchWriterController', function($rootScope, $scope, TimerService) {
+	$('#showProjector').remove();
+
 	$scope.seasonTournamentMatches = null;
 
 	$scope.time = "00:00";
@@ -725,16 +730,13 @@ matchWriterApp.controller('matchWriterController', function($rootScope, $scope, 
 	})));
 	
 	$scope.gameLoaded = function() {
-		//TODO odkomentovať a dať preč testovacie nastavenia
-		/*ipc.send('getGoalTypes', {match: $scope.selectedMatch.id,
+		ipc.send('getGoalTypes', {match: $scope.selectedMatch.id,
 								  game: $scope.selectedMatch.seasonTournament.id});
-		*/ipc.send('getPenaltyTypes', {match: $scope.selectedMatch.id,
+		
+		ipc.send('getPenaltyTypes', {match: $scope.selectedMatch.id,
 								  game: $scope.selectedMatch.seasonTournament.id});
 		ipc.send('getTimeOutLength', {match: $scope.selectedMatch.id,
 								  game: $scope.selectedMatch.seasonTournament.id});
-
-		$scope.goalTypes = config.testData.goalTypes;//TODO zakomentovať
-		$scope.timeOutLength = config.testData.seasonTournamentTimeOutLength; //TODO zakomentovať
 
 		ipc.send('getGamePeriods', {match: $scope.selectedMatch.id,
 									game: $scope.selectedMatch.seasonTournament.id});
@@ -886,8 +888,6 @@ matchWriterApp.controller('matchWriterController', function($rootScope, $scope, 
 		}
         	
 	    sendWebSockets(JSON.stringify(obj)); //TODO
-	    console.log(obj);
-
 	}
 
 	$scope.selectTeam = function(data) {
@@ -1264,20 +1264,29 @@ matchWriterApp.controller('matchWriterController', function($rootScope, $scope, 
 
 		var selectedTeam = null;
 		var teamName = null;
-
+		var position = "home";
 		if($scope.choosedTeam == $scope.selectedMatch.homeTeam.id) {
 			$scope.homeScore++;
 			$scope.addHomeActivity($scope.mainTimer.getTime(), "Gól", text);
 
 			selectedTeam = $scope.selectedMatch.homeTeam.id;
 			teamName = $scope.selectedMatch.homeTeam.team.fullName;
+
+			if($scope.homePenaltyTimes.length > 0) {
+				$scope.homePenaltyTimes.shift(); 
+			}
 		}
 
 		if($scope.choosedTeam == $scope.selectedMatch.awayTeam.id) {
 			$scope.awayScore++;
+			position = "away";
 			$scope.addAwayActivity($scope.mainTimer.getTime(), "Gól", text);
 			selectedTeam = $scope.selectedMatch.awayTeam.id;
 			teamName = $scope.selectedMatch.awayTeam.team.fullName;
+
+			if($scope.homePenaltyTimes.length > 0) {
+				$scope.homePenaltyTimes.shift(); 
+			}
 		}
 
 		$("#showGoal").modal("hide");
@@ -1322,7 +1331,8 @@ matchWriterApp.controller('matchWriterController', function($rootScope, $scope, 
 								path: goalPlayer.photo.path,
 							    assist1Player: assist1Name,
 								assist2Player: assist2Name,
-								goalTeam: teamName}
+								goalTeam: teamName,
+								position: position}
 		);
 
 	}
@@ -1828,7 +1838,7 @@ function normalizeNumber(nmb) {
 }
 
 function checkLogo(oldUrl, replacement) {
-	if(oldUrl == undefined)
+    if(oldUrl == undefined)
         oldUrl = replacement;
     else {
         var myUrl = oldUrl;
@@ -1837,20 +1847,18 @@ function checkLogo(oldUrl, replacement) {
             {
                 url: (config.urls.documents + myUrl),
                 type:'HEAD',
+                async: false,
                 error: function() {
-                    showError("Upozornenie!","Nastala neočakávaná chyba na serveri.<br> Je možné, že program nebude fungovať správne.");
+                    //showError("Upozornenie!","Nastala neočakávaná chyba na serveri.<br> Je možné, že program nebude fungovať správne.");
+                    console.log("Chyba načítana obrázkov zo servera!");
+
+                    oldUrl = replacement;       
                     
-                    var $scope = angular.element(appElement).scope();
-                    $scope.$apply(function() {
-                        for(var i in tournaments.results) {
-                            oldUrl = replacement;       
-                        }
-                    });
                 }
             }
         );
     }
-
+    console.log(oldUrl);
     return oldUrl;
 }
 

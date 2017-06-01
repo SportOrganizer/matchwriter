@@ -14,13 +14,9 @@ ipc.on("seasonTournamentMatches", function(evt, matches) {
         $scope.seasonTournamentMatches = matches;
 
         for(var i in $scope.seasonTournamentMatches) {
-        	//Set date
-        	var myDate = new Date($scope.seasonTournamentMatches[i].startTime);
-        	var myTime = myDate.toTimeString().split(' ')[0].split(':');
-        	myTime = myTime[0] + ":" + myTime[1];
-        	myDate = myDate.toLocaleDateString() + " - " ;
+        	var myDate =  $scope.seasonTournamentMatches[i].startTime;
 
-        	$scope.seasonTournamentMatches[i].startTime = myDate + myTime;
+        	$scope.seasonTournamentMatches[i].startTime = myDate;
 
         	//Set home logo
             $scope.seasonTournamentMatches[i].homeTeam.logo.path = checkLogo($scope.seasonTournamentMatches[i].homeTeam.logo.path, config.urls.defaultTournamentLogo);

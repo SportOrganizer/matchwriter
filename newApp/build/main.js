@@ -33,8 +33,9 @@ app.on('ready', _ => {
 		app.quit()
 	})
 
-	/*defaultWin.setMenu(null);
-*/
+	defaultWin.maximize()
+	defaultWin.setMenu(null);
+
 	windows.push(defaultWin)
 })
 
@@ -117,9 +118,11 @@ ipc.on('buttonPressed',function(event, data){
 					var nextWindow = new BrowserWindow({
 						x: externalDisplays[i].bounds.x + 50,
 						y: externalDisplays[i].bounds.y + 50,
-						//fullscreen: true //TODO
+						fullscreen: true
 					});
 
+					nextWindow.setMenu(null);
+					
 					nextWindow.displayId = externalDisplays[i].id;
 
 					nextWindow.on('close', function() { //   <---- Catch close event
@@ -191,7 +194,7 @@ ipc.on('getGamePreview',function(event, data){
 });
 
 ipc.on('getGoalTypes',function(event, data){
-	var requiredUrl = config.urls.seasonTournaments + data.game +"haha" + config.urls.seasonTournamentPeriod;//TODO nastaviť URL
+	var requiredUrl = config.urls.seasonTournamentMatchGoalType;
 	allAjax(windows, requiredUrl, 'goalTypes');
 
 });
