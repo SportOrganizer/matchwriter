@@ -1,0 +1,239 @@
+
+.liveScore {
+	color: black !important;
+	cursor: none;
+	.headerName {
+		position:relative;
+		font-size:20px;
+		height:10%;
+		.img {
+			img {
+				height:100%;
+				max-width:100%;
+				float:right;
+			}
+		}
+	}
+
+	.penalties {
+		height:15%;
+		padding:10px;
+		position: relative;
+
+		.time {
+			font-size:140px;
+			font-weight: bold;
+			line-height:100%;
+			text-align: center;
+			left:50%;
+			transform:translateX(-50%);
+		}
+		.awayPenalty {
+			float: right;
+			text-align: right;
+			right:0;
+			left:auto;
+		}
+		>div {
+			position:absolute;
+			bottom:0;
+			left:0;
+		}
+		.penalty {
+			padding:2px 15px;
+			font-size:25px;
+			display: inline-block;
+			.penaltyNumber {
+				display: inline-block;
+				font-weight: bold;
+				&:before {
+					content: "# ";
+				}
+			}
+
+			.penaltyTime {
+				display: inline-block;
+			}
+		}
+	}
+
+	.logo {
+		width:100%;
+		height:50%;
+	}
+
+	.teamName {
+		font-size: 50px;
+		text-align: center;
+		font-weight: bold;
+		max-height: 25%;
+		overflow: hidden;
+	}
+	.mainRow {
+		.teamRow {
+			.logo {
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: contain;
+			}
+		}
+	}
+
+	.periodName {
+		font-size: 35px;
+		text-align: center;
+		font-weight: bold;
+	}
+
+	.score {
+		font-size: 350px;
+		font-weight: bold;
+		text-align: center;
+	}
+
+	.shots {
+		font-size: 25px;
+		text-align: center;
+	}
+
+	.overlayBeforeStart {
+		position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		background-color: white;
+		opacity: 1;
+
+		-webkit-transition: opacity 2s ease-in-out;
+	    -moz-transition: opacity 2s ease-in-out;
+	    transition: opacity 2s ease-in-out;
+	}
+
+	.goal, .penalty {
+		.overlay {
+			width: 100%;
+			height:100%;
+			top:0;
+			left:0;
+			position:absolute;
+			background-color: rgba(0,0,0,.3);
+			-webkit-transition: opacity 2s ease-in-out;
+		    -moz-transition: opacity 2s ease-in-out;
+		    transition: opacity 2s ease-in-out;
+		    opacity: 1;
+		    transition: 1s ease-in;
+		}
+		
+		.goalDiv, .penaltyDiv {
+			position:absolute;
+			top:50%;
+			left:50%;
+			width:500px;
+			height:200px;
+			transform: translate(-50%, -50%);
+			background-color: white;
+			opacity: 1;
+			box-shadow: 0 2px 4px rgba(0,0,0,.6);
+			transition: 1s ease-in;
+
+			.header {
+				width:100%;
+				height: 50px;
+				font-size: 30px;
+				font-weight: bold;
+				text-align: center;
+				padding:10px;
+				border-bottom: 1px solid black;
+			}
+
+			.body {
+				width:100%;
+				height: 150px;
+				.photo, .content {
+					display: inline-block;
+				}
+				.photo {
+					padding:10px;
+					width:150px;
+					height:150px;
+					overflow: hidden;
+					position: relative;
+					float: left;
+					img {
+						position: relative;
+						width:100%;
+						height: 100%;
+					}
+				}
+
+				.content {
+					width:350px;
+					height:150px;
+					h1,h2,h3 {
+						margin: 0;
+						padding:0;
+					}
+					h1 {
+						font-size: 20px;
+						font-weight: bold;
+						margin-bottom: 10px;
+						margin-top: 5px;
+					}
+
+					h2 {
+						font-size: 17px;
+						margin-bottom: 5px;
+					}
+					h3 {
+						font-size: 13px;
+					}
+
+					.logo {
+						max-height:50px;
+						max-width: 50px;
+						position:absolute;
+						bottom:5;
+						right:5;
+						img {
+							max-height:50px;
+							max-width: 50px;
+							height:auto;
+						}
+					}
+				}
+			}
+		}
+
+		.upDown {
+			transform: translate(-50%, -500%);
+		}
+
+		.overlayHide {
+			opacity: 0;
+		}
+	}
+}
+
+@media screen and (max-width:968px) {
+	.liveScore .penalties .time {
+		font-size: 100px;
+	}
+	.liveScore .score {
+		font-size: 200px !important;
+	}
+
+	.liveScore .teamName {
+		font-size:35px;
+	}
+}
+
+@media screen and (max-width:1200px) {
+	.liveScore .score {
+		font-size: 280px;
+	}
+
+	.liveScore .teamName {
+		font-size:45px;
+	}
+}

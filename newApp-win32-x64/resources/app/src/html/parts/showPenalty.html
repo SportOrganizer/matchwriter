@@ -1,0 +1,59 @@
+<div id="showPenalty" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title header" >Trest</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text confirmBody">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12 teamsRow">
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-primary active selectGoal" ng-click="selectTeamTotal(selectedMatch.homeTeam.id, 'home')">
+                    <input type="radio" name="selectedGoal" autocomplete="off" value="{{selectedMatch.homeTeam.id}}" tname="{{selectedMatch.awayTeam.team.fullName}}" ng-checked="{{choosedTeam==selectedMatch.homeTeam.id}}"> 
+                    <img data-ng-src="{{selectedMatch.homeTeam.logo.path}}" alt="">{{selectedMatch.homeTeam.team.fullName}}
+                  </label>
+                  <label class="btn btn-primary selectGoal" ng-click="selectTeamTotal(selectedMatch.awayTeam.id, 'away')">
+                    <input type="radio" name="selectedGoal" autocomplete="off" value="{{selectedMatch.awayTeam.id}}" tname="{{selectedMatch.awayTeam.team.fullName}}" ng-checked="{{choosedTeam==selectedMatch.awayTeam.id}}"> 
+                    <img data-ng-src="{{selectedMatch.awayTeam.logo.path}}" alt="">{{selectedMatch.awayTeam.team.fullName}}
+                  </label>  
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <hr>
+              </div>
+              <div class="col-xs-12 playersRows">
+                <div class="form-group">
+                  <div class="form-group form-inline">                            
+                    <label class="labelInline" for="goalType">Trest</label>
+                      <select name="penaltyType" id="penaltyType" class="form-control" 
+                        ng-model="selectedPenalty" 
+                        ng-options="o.id as o.penalty.name + ' - ' + o.seasonTournamentPenaltyType.penaltyType.name for o in penaltyTypes" 
+                        ng-init="selectedPenalty = penaltyTypes[0].id">
+                      </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 playersRows">
+                <div class="form-group">
+                  <div class="form-group form-inline">                            
+                    <label class="labelInline" for="penaltyPlayer">Hráč</label>
+                      <select name="penaltyPlayer" id="penaltyPlayer" class="form-control">
+                        <option ng-repeat="elem in choosedTeamPlayers" value='{{elem.gamePlayerId}}' numberP='{{elem.number}}' playerN='{{elem.personInfo.name}} {{elem.personInfo.surname}}'>{{elem.number}} - {{elem.personInfo.name}} {{elem.personInfo.surname}}</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p>
+      </div>
+      <div class="modal-footer">
+          <button class="cancelButton" type="button" class="btn btn-default" data-dismiss="modal">Zrušiť</button>
+        <button id="confirmYes" type="button" class="btn btn-primary" ng-click="confirmPenalty()">Potvrdiť</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

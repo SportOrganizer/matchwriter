@@ -1,0 +1,122 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+  <script>require('../js/libs/angular.min')</script>
+  <script>
+      window.jQuery = window.$ = require('../js/libs/jquery.min');
+  </script>
+  <script>require('../js/libs/ui-bootstrap.min')</script>
+  <script>require('../js/libs/bootstrap.min')</script>
+</head>
+	<body>
+		<div class="container">
+  <!-- Static navbar -->
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">MatchWriter</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav startGameHandling">
+          <li class="@@homeClass">
+            <a href="./index.html">Domov</a>
+          </li>
+          <li class="@@backClass">
+            <a id="backButton" href="./location.html">
+              <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Výber ihriska
+            </a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right rightMenu">
+          <li class="dropdown">
+            <a href="#" id="showProjector" sendIpc="liveScore.html">Zobraziť projektor</a>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+  </nav>
+</div>
+		<div class="container" ng-app="seasonTournamentMatches" ng-controller="seasonTournamentMatchesController">
+			<div id="ajaxLoading">
+	<div class='uil-ring-css' style='transform:scale(1);'>
+		<div></div>
+	</div>
+</div>
+			<div class="header row text-center">
+				<h1>Výber zápasu</h1>
+			</div>
+			<div class="row">
+				<div class="tournament-reload">
+					<div ng-click="reloadMatches()" class="reloadButton">
+						<img src="../images/reload.svg" alt="">
+					</div>
+				</div>
+			</div>
+			<div class="row tournament-chooser" >
+				<div class="tournament-button col-sm-12 col-md-6 col-lg-4" ng-repeat= "x in seasonTournamentMatches">
+					<div ng-click="chooseTournamentMatch(x)" class="element">
+						<div class="matchRow row">
+							<div class="col-xs-12">
+								<h5>{{x.round.name}}</h5>
+							</div>
+							<div class="col-xs-12">
+								<h4>{{x.startTime}}</h4>
+							</div>
+							<div class="col-xs-12">
+								<div class="row imgHolder">
+									<div class="col-xs-5">
+										<img data-ng-src="{{x.homeTeam.logo.path}}" alt="">
+									</div>
+									<div class="col-xs-2 delimeter">
+										:
+									</div>
+									<div class="col-xs-5">
+										<img data-ng-src="{{x.awayTeam.logo.path}}" alt="">
+									</div>	
+								</div>
+							</div>
+							<div class="col-xs-5 teamName">
+								<h3>{{x.homeTeam.team.name}}</h3>
+							</div>
+							<div class="col-xs-5 col-xs-offset-2 teamName">
+								<h3>{{x.awayTeam.team.name}}</h3>
+							</div>
+						</div>
+						
+						<img data-ng-src="{{x.logo}}" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="errorWindow" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 id="errorHeader" class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <p id="errorBody"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+	</body>
+
+	<script>require('../js/bundle')</script> 
+</html>

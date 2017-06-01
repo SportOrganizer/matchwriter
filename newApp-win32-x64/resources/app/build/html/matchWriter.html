@@ -1,0 +1,396 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+  <script>require('../js/libs/angular.min')</script>
+  <script>
+      window.jQuery = window.$ = require('../js/libs/jquery.min');
+  </script>
+  <script>require('../js/libs/ui-bootstrap.min')</script>
+  <script>require('../js/libs/bootstrap.min')</script>
+</head>
+	<body ng-app="matchWriter" ng-controller="matchWriterController" ng-keydown="keyWasPressed($event)">
+		<div class="container">
+  <!-- Static navbar -->
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">MatchWriter</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav startGameHandling">
+          <li class="@@homeClass">
+            <a href="./index.html">Domov</a>
+          </li>
+          <li class="@@backClass">
+            <a id="backButton" href="./matches.html">
+              <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Výber zápasu
+            </a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right rightMenu">
+          <li class="dropdown">
+            <a href="#" id="showProjector" sendIpc="liveScore.html">Zobraziť projektor</a>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+  </nav>
+</div>
+		<div id="ajaxLoading">
+	<div class='uil-ring-css' style='transform:scale(1);'>
+		<div></div>
+	</div>
+</div>
+		<div class="container matchWriter">
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="image">
+						<img data-ng-src="{{selectedMatch.homeTeam.logo.path}}" alt="">
+					</div>
+					<div class="team">
+						{{selectedMatch.homeTeam.team.name}}
+					</div>
+					<div class="penaltyTable">
+						<div class="penalty" ng-repeat="s in homePenaltyTimes">
+							<div class="number">{{s.getPlayer()}}</div>
+							<div class="time">{{s.getPenaltyTime()}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4 timeTable">
+					<div class="row">
+						<div class="col-xs-12 period">
+							{{period}}
+						</div>
+						<div class="col-xs-12 time">
+							{{getTime()}}
+						</div>
+						<div class="col-xs-12 score">
+							{{homeScore}}:{{awayScore}}
+						</div>
+						<div class="col-xs-12 shots">
+							<h6>Strely</h6>
+							{{homeShots}}-{{awayShots}}
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="image">
+						<img data-ng-src="{{selectedMatch.awayTeam.logo.path}}" alt="">
+					</div>
+					<div class="team">
+						{{selectedMatch.awayTeam.team.name}}
+					</div>
+					<div class="penaltyTable">
+						<div class="penalty" ng-repeat="s in awayPenaltyTimes">
+							<div class="number">{{s.getPlayer()}}</div>
+							<div class="time">{{s.getPenaltyTime()}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-5 events eventsHome">
+					<div class="row header">
+						<div class="col-xs-2 time">
+							Čas
+						</div>
+						<div class="col-xs-2 action">
+							Akcia
+						</div>
+						<div class="col-xs-8 text">
+							Popis
+						</div>
+					</div>
+					<div class="row" ng-repeat="s in homeActivities">
+						<div class="col-xs-2 time">
+							{{s.time}}
+						</div>
+						<div class="col-xs-2 action">
+							{{s.action}}
+						</div>
+						<div class="col-xs-8 text">
+							{{s.text}}
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-2 buttons">
+					<div class="row">
+						<div class="col-xs-12">
+							<button ng-click="playTime()">{{playButton}}</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<button class="bigger" ng-click="showGoal()" ng-disabled="period==null">Gól</button>
+						</div>
+						<div class="col-xs-12">
+							<button class="bigger" ng-click="showPenalty()" ng-disabled="period==null">Trest</button>
+						</div>
+						<div class="col-xs-6">
+							<button ng-show="timeOutHome" ng-click="timeOutHome()" ng-disabled="period==null">TimeOut Domáci</button>
+						</div>
+						<div class="col-xs-6">
+							<button ng-show="timeOutAway"ng-click="timeOutAway()" ng-disabled="period==null">TimeOut Hostia</button>
+						</div>
+					</div>
+					
+				</div>
+				<div class="col-xs-5 events eventsAway">
+					<div class="row header">
+						<div class="col-xs-2 time">
+							Čas
+						</div>
+						<div class="col-xs-2 action">
+							Akcia
+						</div>
+						<div class="col-xs-8 text">
+							Popis
+						</div>
+					</div>
+					<div class="row" ng-repeat="s in awayActivities">
+						<div class="col-xs-2 time">
+							{{s.time}}
+						</div>
+						<div class="col-xs-2 action">
+							{{s.action}}
+						</div>
+						<div class="col-xs-8 text">
+							{{s.text}}
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div id="errorWindow" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 id="errorHeader" class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <p id="errorBody"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+		<div id="myConfirm" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h4 class="modal-title header" ></h4>
+      </div>
+      <div class="modal-body">
+        <p class="text selectPlayer"></p>
+      </div>
+      <div class="modal-footer">
+        
+        <button id="confirmYes" type="button" class="btn btn-primary" ng-click="confirmPlayers()">Potvrdiť</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+		<div id="showPeriod" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title header" >Výber hracej časti</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text confirmBody">
+          <div class="container-fluid">
+            <div class="row timeRow">
+              <div class="col-xs-12">
+                <h2>Nastavenie času</h2>
+              </div>
+              <div class="col-xs-6 col-xs-offset-3 selectTime">
+                <div class="inputs">
+                  <input type="number" name="minutes" class="form-control" min="0" max="59" placeholder="mm">
+                  :
+                  <input type="number" name="seconds" class="form-control" min="0" max="59" placeholder="ss">
+                </div>
+              </div>
+            </div>
+            <div class="row periodsRow">
+              <div class="col-xs-12">
+                <h2>Výber tretiny</h2>
+              </div>
+              <div class="col-xs-6 col-xs-offset-3">
+                <select name="selectPeriod" id="selectPeriod" class="form-control">
+                </select>
+              </div>
+            </div>
+          </div>
+        </p>
+      </div>
+      <div class="modal-footer">
+          <button class="cancelButton" type="button" class="btn btn-default" data-dismiss="modal">Zrušiť</button>
+        <button id="confirmYes" type="button" class="btn btn-primary" ng-click="confirmPeriod()">Potvrdiť</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+		<div id="showGoal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title header" >Strelený gól</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text confirmBody">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12 teamsRow">
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-primary active selectGoal" ng-click="selectTeam(selectedMatch.homeTeam.id)">
+                    <input type="radio" name="selectedGoal" autocomplete="off" value="{{selectedMatch.homeTeam.id}}" checked> 
+                    <img data-ng-src="{{selectedMatch.homeTeam.logo.path}}" alt="">{{selectedMatch.homeTeam.team.fullName}}
+                  </label>
+                  <label class="btn btn-primary selectGoal" ng-click="selectTeam(selectedMatch.awayTeam.id)">
+                    <input type="radio" name="selectedGoal" autocomplete="off" value="{{selectedMatch.awayTeam.id}}"> 
+                    <img data-ng-src="{{selectedMatch.awayTeam.logo.path}}" alt="">{{selectedMatch.awayTeam.team.fullName}}
+                  </label>  
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <hr>
+              </div>
+              <div class="col-xs-12 playersRows">
+                <div class="form-group">
+                  <div class="form-group form-inline">                            
+                    <label class="labelInline" for="goalType">Typ gólu</label>
+                      <select name="goalType" id="goalType" class="form-control">
+                        <option ng-repeat="elem in goalTypes" value="{{elem.id}}">{{elem.name}}</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <hr>
+              </div>
+              <div class="col-xs-12 playersRows">
+                <div class="form-group">
+                  <div class="form-group form-inline">                            
+                    <label class="labelInline" for="goalPlayer">Gól</label>
+                      <select name="goalPlayer" id="goalPlayer" class="form-control">
+                        <option ng-repeat="elem in choosedTeamPlayers" value='{{elem.gamePlayerId}}'>{{elem.number}} - {{elem.personInfo.name}} {{elem.personInfo.surname}}</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 playersRows">
+                <div class="form-group">
+                  <div class="form-group form-inline">                            
+                    <label class="labelInline" for="assist1Player">Asistencia 1</label>
+                      <select name="assist1Player" id="assist1Player" class="form-control">
+                        <option value="-1">Žiadna</option>
+                        <option ng-repeat="elem in choosedTeamPlayers" value='{{elem.gamePlayerId}}'>{{elem.number}} - {{elem.personInfo.name}} {{elem.personInfo.surname}}</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 playersRows">
+                <div class="form-group">
+                  <div class="form-group form-inline">                            
+                    <label class="labelInline" for="assist2Player">Asistencia 2</label>
+                      <select name="assist2Player" id="assist2Player" class="form-control">
+                        <option value="-1">Žiadna</option>
+                        <option ng-repeat="elem in choosedTeamPlayers" value='{{elem.gamePlayerId}}'>{{elem.number}} - {{elem.personInfo.name}} {{elem.personInfo.surname}}</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p>
+      </div>
+      <div class="modal-footer">
+          <button class="cancelButton" type="button" class="btn btn-default" data-dismiss="modal">Zrušiť</button>
+        <button id="confirmYes" type="button" class="btn btn-primary" ng-click="confirmGoal()">Potvrdiť</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+		<div id="showPenalty" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title header" >Trest</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text confirmBody">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12 teamsRow">
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-primary active selectGoal" ng-click="selectTeamTotal(selectedMatch.homeTeam.id, 'home')">
+                    <input type="radio" name="selectedGoal" autocomplete="off" value="{{selectedMatch.homeTeam.id}}" tname="{{selectedMatch.awayTeam.team.fullName}}" ng-checked="{{choosedTeam==selectedMatch.homeTeam.id}}"> 
+                    <img data-ng-src="{{selectedMatch.homeTeam.logo.path}}" alt="">{{selectedMatch.homeTeam.team.fullName}}
+                  </label>
+                  <label class="btn btn-primary selectGoal" ng-click="selectTeamTotal(selectedMatch.awayTeam.id, 'away')">
+                    <input type="radio" name="selectedGoal" autocomplete="off" value="{{selectedMatch.awayTeam.id}}" tname="{{selectedMatch.awayTeam.team.fullName}}" ng-checked="{{choosedTeam==selectedMatch.awayTeam.id}}"> 
+                    <img data-ng-src="{{selectedMatch.awayTeam.logo.path}}" alt="">{{selectedMatch.awayTeam.team.fullName}}
+                  </label>  
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <hr>
+              </div>
+              <div class="col-xs-12 playersRows">
+                <div class="form-group">
+                  <div class="form-group form-inline">                            
+                    <label class="labelInline" for="goalType">Trest</label>
+                      <select name="penaltyType" id="penaltyType" class="form-control" 
+                        ng-model="selectedPenalty" 
+                        ng-options="o.id as o.penalty.name + ' - ' + o.seasonTournamentPenaltyType.penaltyType.name for o in penaltyTypes" 
+                        ng-init="selectedPenalty = penaltyTypes[0].id">
+                      </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 playersRows">
+                <div class="form-group">
+                  <div class="form-group form-inline">                            
+                    <label class="labelInline" for="penaltyPlayer">Hráč</label>
+                      <select name="penaltyPlayer" id="penaltyPlayer" class="form-control">
+                        <option ng-repeat="elem in choosedTeamPlayers" value='{{elem.gamePlayerId}}' numberP='{{elem.number}}' playerN='{{elem.personInfo.name}} {{elem.personInfo.surname}}'>{{elem.number}} - {{elem.personInfo.name}} {{elem.personInfo.surname}}</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p>
+      </div>
+      <div class="modal-footer">
+          <button class="cancelButton" type="button" class="btn btn-default" data-dismiss="modal">Zrušiť</button>
+        <button id="confirmYes" type="button" class="btn btn-primary" ng-click="confirmPenalty()">Potvrdiť</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+	</body>
+
+	<script>require('../js/bundle')</script> 
+	</body>
+</html>

@@ -1,0 +1,82 @@
+<div id="showGoal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title header" >Strelený gól</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text confirmBody">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12 teamsRow">
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-primary active selectGoal" ng-click="selectTeam(selectedMatch.homeTeam.id)">
+                    <input type="radio" name="selectedGoal" autocomplete="off" value="{{selectedMatch.homeTeam.id}}" checked> 
+                    <img data-ng-src="{{selectedMatch.homeTeam.logo.path}}" alt="">{{selectedMatch.homeTeam.team.fullName}}
+                  </label>
+                  <label class="btn btn-primary selectGoal" ng-click="selectTeam(selectedMatch.awayTeam.id)">
+                    <input type="radio" name="selectedGoal" autocomplete="off" value="{{selectedMatch.awayTeam.id}}"> 
+                    <img data-ng-src="{{selectedMatch.awayTeam.logo.path}}" alt="">{{selectedMatch.awayTeam.team.fullName}}
+                  </label>  
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <hr>
+              </div>
+              <div class="col-xs-12 playersRows">
+                <div class="form-group">
+                  <div class="form-group form-inline">                            
+                    <label class="labelInline" for="goalType">Typ gólu</label>
+                      <select name="goalType" id="goalType" class="form-control">
+                        <option ng-repeat="elem in goalTypes" value="{{elem.id}}">{{elem.name}}</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <hr>
+              </div>
+              <div class="col-xs-12 playersRows">
+                <div class="form-group">
+                  <div class="form-group form-inline">                            
+                    <label class="labelInline" for="goalPlayer">Gól</label>
+                      <select name="goalPlayer" id="goalPlayer" class="form-control">
+                        <option ng-repeat="elem in choosedTeamPlayers" value='{{elem.gamePlayerId}}'>{{elem.number}} - {{elem.personInfo.name}} {{elem.personInfo.surname}}</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 playersRows">
+                <div class="form-group">
+                  <div class="form-group form-inline">                            
+                    <label class="labelInline" for="assist1Player">Asistencia 1</label>
+                      <select name="assist1Player" id="assist1Player" class="form-control">
+                        <option value="-1">Žiadna</option>
+                        <option ng-repeat="elem in choosedTeamPlayers" value='{{elem.gamePlayerId}}'>{{elem.number}} - {{elem.personInfo.name}} {{elem.personInfo.surname}}</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 playersRows">
+                <div class="form-group">
+                  <div class="form-group form-inline">                            
+                    <label class="labelInline" for="assist2Player">Asistencia 2</label>
+                      <select name="assist2Player" id="assist2Player" class="form-control">
+                        <option value="-1">Žiadna</option>
+                        <option ng-repeat="elem in choosedTeamPlayers" value='{{elem.gamePlayerId}}'>{{elem.number}} - {{elem.personInfo.name}} {{elem.personInfo.surname}}</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p>
+      </div>
+      <div class="modal-footer">
+          <button class="cancelButton" type="button" class="btn btn-default" data-dismiss="modal">Zrušiť</button>
+        <button id="confirmYes" type="button" class="btn btn-primary" ng-click="confirmGoal()">Potvrdiť</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

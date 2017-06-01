@@ -1,0 +1,180 @@
+.matchWriter {
+	.image {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 200px;
+
+		img {
+			max-width:100%;
+			max-height:200px;
+		}
+	}
+
+	.team {
+		text-align: center;
+		font-size:27px;
+		font-weight: bold;
+	}
+
+	.timeTable {
+		text-align: center;
+		.period {
+			font-size: 20px;
+		}
+		.time {
+			font-size: 50px;
+		}
+		.score {
+			font-size: 90px;
+		}
+		.shots {
+			font-size:18px;
+		}
+	}
+
+	.penaltyTable {
+		font-size:13px;
+		.penalty {
+			display: inline-block;
+			padding-right: 10px;
+			.number, .time {
+				display: inline-block;
+			}
+
+			.number {
+				font-weight: bold;
+				&:before {
+					content: '#';
+				}
+				&:after {
+					content: ' - ';
+				}
+			}
+		}
+	}
+
+	.events {
+		margin-top:50px;
+		max-height:300px;
+		overflow: auto;
+		.row {
+			padding:3px;
+			font-size: 12px;
+			border-bottom: 1px solid black;
+			&:last-child {
+				border-bottom: 0px;
+			}
+		}
+
+		.header {
+			font-size: 15px;
+			font-weight: bold;
+		}
+		.time {
+			text-align: right;
+		}
+	}
+
+	.buttons {
+		button {
+			width:100%;
+			padding:5px;
+			margin:5px;
+			background-color: #f3f3f3;
+			outline:0;
+			border:1px solid #dedede;
+			border-radius:3px;
+			font-size: 10px;
+			font-weight: bold;
+			text-align: center;
+			color: #555555;
+
+			&.bigger {
+				font-size: 17px;
+			}
+
+			&:hover {
+				color: #000000;
+			}
+		}
+
+		.home {
+			font-size:12px;
+		}
+
+		.away {
+			font-size:12px;
+			text-align: right;
+		}
+		hr {
+			padding-bottom: 0px;
+			margin-bottom:5px;
+			margin-top: 20px;
+		}
+	}
+}
+
+.selectTime {
+	padding:10px;
+	.inputs {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	span {
+		padding:10px;
+	}
+	input {
+    	width: 60px;
+    	font-size:18px;
+    	line-height:30px;
+    	text-align: center;
+    	height: auto;
+    	padding-right: 0;
+	}
+}
+
+.timeRow h2, .periodsRow h2 {
+    font-size: 18px;
+}
+
+#showGoal, #showPenalty {
+	.teamsRow {
+	    text-align: center;	
+	}
+	.selectGoal {
+	    width: 48%;
+	    overflow: hidden;
+	    padding:5px 15px;
+        background-color: #dedede;
+	    color: black;
+	    font-weight: bold;
+	    border-width: 0;
+	    &.active {
+			background-color: #337ab7;
+			color: white;
+			font-weight: 500;
+	    }
+	    &:focus {
+	    	outline:none;
+	    }
+		img {
+			height:100%;
+			max-height: 30px;
+	    	padding-right: 20px;
+		}
+	}
+
+	.labelInline {
+		width:150px;
+		text-align: right;
+    	padding-right: 20px;
+	}
+
+	.playersRows {
+		select {
+			width:250px;
+		}
+	}
+}
