@@ -1,0 +1,119 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+  <script>require('../js/libs/angular.min')</script>
+  <script>
+      window.jQuery = window.$ = require('../js/libs/jquery.min');
+  </script>
+  <script>require('../js/libs/ui-bootstrap.min')</script>
+  <script>require('../js/libs/bootstrap.min')</script>
+</head>
+	<body ng-app="liveScore" ng-controller="liveScoreController">
+		<div class="container-fluid liveScore">
+			<div class="row headerName">
+				<div class="col-xs-6">
+					{{appName}}
+				</div>
+				<div class="col-xs-6 img">
+					<img src="../images/defaultTournament.png">
+				</div>
+			</div>
+			<div class="row penalties">
+				<div class="col-md-4 col-xs-3 homePenalty">
+					<div class="penalty" ng-repeat="s in homePenaltyTimes">
+						<div class="penaltyNumber">{{s.getPlayer()}}</div>
+						<div class="penaltyTime">{{s.getPenaltyTime()}}</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-xs-6 time">
+					{{getTime()}}
+				</div> 
+				<div class="col-md-4 col-xs-3 awayPenalty">
+					<div class="penalty" ng-repeat="s in awayPenaltyTimes">
+						<div class="penaltyNumber">{{s.getPlayer()}}</div>
+						<div class="penaltyTime">{{s.getPenaltyTime()}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mainRow">
+				<div class="col-xs-4 teamRow">
+					<div class="row">
+						<div class="col-xs-12 logo" style="background-image: url('{{selectedMatch.homeTeam.logo.path}}');">
+						</div>
+						<div class="col-xs-12 teamName">
+							{{selectedMatch.homeTeam.team.fullName}}
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4 timeRow">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="periodName">{{period}}</div>
+						</div>
+						<div class="col-xs-12 score">
+							{{homeScore}}:{{awayScore}}
+						</div>
+						<div class="col-xs-12 shots">
+							{{homeShots}} - {{homeShots}}
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4 teamRow">
+					<div class="row">
+						<div class="col-xs-12 logo" style="background-image: url('{{selectedMatch.awayTeam.logo.path}}');">
+						</div>
+						<div class="col-xs-12 teamName">
+							{{selectedMatch.awayTeam.team.fullName}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="overlayBeforeStart"></div>
+			<div class="goal">
+	<div class="overlay overlayHide">
+	</div>
+
+	<div class="goalDiv upDown">
+		<div class="header">
+			Gól - {{goalPlayer}}
+		</div>
+		<div class="body">
+			<div class="photo">
+				<img src="" alt="">
+			</div>
+			<div class="content">
+				<h1>{{goalTeam}}</h1>
+				<h2>{{goalPlayer}}</h2>
+				<h3>{{assist1Player}}</h3>
+				<h3>{{assist2Player}}</h3>
+
+			</div>
+		</div>
+	</div>
+</div>
+			<div class="penalty">
+	<div class="overlay overlayHide">
+	</div>
+
+	<div class="penaltyDiv upDown">
+		<div class="header">
+			Trest - {{penaltyPlayer}}
+		</div>
+		<div class="body">
+			<div class="photo">
+				<img src="" alt="">
+			</div>
+			<div class="content">
+				<h1>{{penaltyTeam}}</h1>
+				<h2>{{penaltyType}}</h2>
+			</div>
+		</div>
+	</div>
+</div>
+		</div>
+	</body>
+	<script>require('../js/bundle')</script> 
+	</body>
+</html>

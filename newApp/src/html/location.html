@@ -1,0 +1,38 @@
+<html>
+@@include('parts/header.html')
+	<body>
+		@@include('parts/navbar.html', {
+			"backText" : "Výber turnaja",
+			"backHref" : "./index.html"
+		})
+		<div class="container" ng-app="seasonTournamentLocations" ng-controller="seasonTournamentLocationsController">
+			@@include('parts/ajaxLoading.html')
+			<div class="header row text-center">
+				<h1>Výber ihriska</h1>
+			</div>
+			<div class="row">
+				<div class="tournament-reload">
+					<div ng-click="reloadLocations()" class="reloadButton">
+						<img src="../images/reload.svg" alt="">
+					</div>
+				</div>
+			</div>
+			<div class="row tournament-chooser" >
+				<div class="tournament-button col-xs-6 col-sm-4 col-md-3 col-lg-2" ng-repeat= "x in seasonTournamentLocations">
+					<div ng-click="chooseLocation(x)" class="element">
+						<div class="header">
+							<h3><b>{{x.name}}</b></h3>
+						</div>
+						<div class="img" ng-style="{'background-image':'url('+ x.logo +')'}" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		@@include('parts/errorModal.html')
+	</body>
+
+	@@include('parts/footer.html')
+	</body>
+</html>

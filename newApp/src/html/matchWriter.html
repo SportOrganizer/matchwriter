@@ -1,0 +1,148 @@
+<html>
+@@include('parts/header.html')
+	<body ng-app="matchWriter" ng-controller="matchWriterController" ng-keydown="keyWasPressed($event)">
+		@@include('parts/navbar.html', {
+			"backText" : "Výber zápasu",
+			"backHref" : "./matches.html"
+		})
+		@@include('parts/ajaxLoading.html')
+		<div class="container matchWriter">
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="image">
+						<img data-ng-src="{{selectedMatch.homeTeam.logo.path}}" alt="">
+					</div>
+					<div class="team">
+						{{selectedMatch.homeTeam.team.name}}
+					</div>
+					<div class="penaltyTable">
+						<div class="penalty" ng-repeat="s in homePenaltyTimes">
+							<div class="number">{{s.getPlayer()}}</div>
+							<div class="time">{{s.getPenaltyTime()}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4 timeTable">
+					<div class="row">
+						<div class="col-xs-12 period">
+							{{period}}
+						</div>
+						<div class="col-xs-12 time">
+							{{getTime()}}
+						</div>
+						<div class="col-xs-12 score">
+							{{homeScore}}:{{awayScore}}
+						</div>
+						<div class="col-xs-12 shots">
+							<h6>Strely</h6>
+							{{homeShots}}-{{awayShots}}
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="image">
+						<img data-ng-src="{{selectedMatch.awayTeam.logo.path}}" alt="">
+					</div>
+					<div class="team">
+						{{selectedMatch.awayTeam.team.name}}
+					</div>
+					<div class="penaltyTable">
+						<div class="penalty" ng-repeat="s in awayPenaltyTimes">
+							<div class="number">{{s.getPlayer()}}</div>
+							<div class="time">{{s.getPenaltyTime()}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-5 events eventsHome">
+					<div class="row header">
+						<div class="col-xs-2 time">
+							Čas
+						</div>
+						<div class="col-xs-2 action">
+							Akcia
+						</div>
+						<div class="col-xs-8 text">
+							Popis
+						</div>
+					</div>
+					<div class="row" ng-repeat="s in homeActivities">
+						<div class="col-xs-2 time">
+							{{s.time}}
+						</div>
+						<div class="col-xs-2 action">
+							{{s.action}}
+						</div>
+						<div class="col-xs-8 text">
+							{{s.text}}
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-2 buttons">
+					<div class="row">
+						<div class="col-xs-12">
+							<button ng-click="playTime()">{{playButton}}</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<button class="bigger" ng-click="showGoal()" ng-disabled="period==null">Gól</button>
+						</div>
+						<div class="col-xs-12">
+							<button class="bigger" ng-click="showPenalty()" ng-disabled="period==null">Trest</button>
+						</div>
+						<div class="col-xs-6">
+							<button ng-show="timeOutHome" ng-click="timeOutHome()" ng-disabled="period==null">TimeOut Domáci</button>
+						</div>
+						<div class="col-xs-6">
+							<button ng-show="timeOutAway"ng-click="timeOutAway()" ng-disabled="period==null">TimeOut Hostia</button>
+						</div>
+					</div>
+					
+				</div>
+				<div class="col-xs-5 events eventsAway">
+					<div class="row header">
+						<div class="col-xs-2 time">
+							Čas
+						</div>
+						<div class="col-xs-2 action">
+							Akcia
+						</div>
+						<div class="col-xs-8 text">
+							Popis
+						</div>
+					</div>
+					<div class="row" ng-repeat="s in awayActivities">
+						<div class="col-xs-2 time">
+							{{s.time}}
+						</div>
+						<div class="col-xs-2 action">
+							{{s.action}}
+						</div>
+						<div class="col-xs-8 text">
+							{{s.text}}
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		@@include('parts/errorModal.html')
+		@@include('parts/confirmWindow.html', {
+			"id": "myConfirm",
+			"yesButton": "Potvrdiť",
+			"yesFunction": "confirmPlayers()",
+			"addNoButton": false,
+			"bodyClass": "selectPlayer",
+			"title":"",
+			"body":""
+		})
+		@@include('parts/gameParts.html')
+		@@include('parts/showGoal.html')
+		@@include('parts/showPenalty.html')
+	</body>
+
+	@@include('parts/footer.html')
+	</body>
+</html>

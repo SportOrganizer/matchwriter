@@ -1,0 +1,521 @@
+.tournament-chooser {
+  width: 100%;
+  height: 50%;
+  overflow: auto;
+  background-color: transparent; }
+  .tournament-chooser .tournament-button {
+    height: 250px;
+    padding: 20px; }
+    .tournament-chooser .tournament-button .element {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      background-color: #fafafa;
+      float: left;
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      -webkit-transition: all .2s ease-in-out;
+      transition: all .2s ease-in-out;
+      border: 1px solid #c8c8c8; }
+      .tournament-chooser .tournament-button .element .header {
+        height: 30% !important;
+        padding-top: 10px;
+        max-width: 100%;
+        overflow: hidden; }
+        .tournament-chooser .tournament-button .element .header h3 {
+          color: #000000;
+          font-size: 15px;
+          line-height: 20px;
+          margin: 0;
+          position: relative; }
+      .tournament-chooser .tournament-button .element .img {
+        background-size: contain;
+        width: 90%;
+        margin: 0 5%;
+        height: 70%;
+        background-repeat: no-repeat;
+        background-position: center center; }
+      .tournament-chooser .tournament-button .element:hover {
+        -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); }
+
+.tournament-reload {
+  display: inline-block;
+  cursor: pointer;
+  padding: 10px;
+  float: right;
+  padding-right: 30px; }
+  .tournament-reload:hover img {
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg); }
+  .tournament-reload img {
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    width: 35px; }
+
+.matchRow {
+  margin: 0 !important; }
+  .matchRow h5 {
+    font-size: 10px;
+    margin: 0;
+    margin-top: 5px; }
+  .matchRow h4 {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 5px; }
+  .matchRow .imgHolder {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: auto; }
+    .matchRow .imgHolder img {
+      max-width: 100%;
+      height: auto;
+      max-height: 110px; }
+  .matchRow h3 {
+    font-size: 18px;
+    margin: 10px 0; }
+  .matchRow .teamName {
+    max-width: 100%;
+    overflow: hidden; }
+  .matchRow .delimeter {
+    font-size: 50px;
+    line-height: 110px;
+    font-weight: bold; }
+
+.matchWriter .image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 200px; }
+  .matchWriter .image img {
+    max-width: 100%;
+    max-height: 200px; }
+
+.matchWriter .team {
+  text-align: center;
+  font-size: 27px;
+  font-weight: bold; }
+
+.matchWriter .timeTable {
+  text-align: center; }
+  .matchWriter .timeTable .period {
+    font-size: 20px; }
+  .matchWriter .timeTable .time {
+    font-size: 50px; }
+  .matchWriter .timeTable .score {
+    font-size: 90px; }
+  .matchWriter .timeTable .shots {
+    font-size: 18px; }
+
+.matchWriter .penaltyTable {
+  font-size: 13px; }
+  .matchWriter .penaltyTable .penalty {
+    display: inline-block;
+    padding-right: 10px; }
+    .matchWriter .penaltyTable .penalty .number, .matchWriter .penaltyTable .penalty .time {
+      display: inline-block; }
+    .matchWriter .penaltyTable .penalty .number {
+      font-weight: bold; }
+      .matchWriter .penaltyTable .penalty .number:before {
+        content: '#'; }
+      .matchWriter .penaltyTable .penalty .number:after {
+        content: ' - '; }
+
+.matchWriter .events {
+  margin-top: 50px;
+  max-height: 300px;
+  overflow: auto; }
+  .matchWriter .events .row {
+    padding: 3px;
+    font-size: 12px;
+    border-bottom: 1px solid black; }
+    .matchWriter .events .row:last-child {
+      border-bottom: 0px; }
+  .matchWriter .events .header {
+    font-size: 15px;
+    font-weight: bold; }
+  .matchWriter .events .time {
+    text-align: right; }
+
+.matchWriter .buttons button {
+  width: 100%;
+  padding: 5px;
+  margin: 5px;
+  background-color: #f3f3f3;
+  outline: 0;
+  border: 1px solid #dedede;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  color: #555555; }
+  .matchWriter .buttons button.bigger {
+    font-size: 17px; }
+  .matchWriter .buttons button:hover {
+    color: #000000; }
+
+.matchWriter .buttons .home {
+  font-size: 12px; }
+
+.matchWriter .buttons .away {
+  font-size: 12px;
+  text-align: right; }
+
+.matchWriter .buttons hr {
+  padding-bottom: 0px;
+  margin-bottom: 5px;
+  margin-top: 20px; }
+
+.selectTime {
+  padding: 10px; }
+  .selectTime .inputs {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+  .selectTime span {
+    padding: 10px; }
+  .selectTime input {
+    width: 60px;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    height: auto;
+    padding-right: 0; }
+
+.timeRow h2, .periodsRow h2 {
+  font-size: 18px; }
+
+#showGoal .teamsRow, #showPenalty .teamsRow {
+  text-align: center; }
+
+#showGoal .selectGoal, #showPenalty .selectGoal {
+  width: 48%;
+  overflow: hidden;
+  padding: 5px 15px;
+  background-color: #dedede;
+  color: black;
+  font-weight: bold;
+  border-width: 0; }
+  #showGoal .selectGoal.active, #showPenalty .selectGoal.active {
+    background-color: #337ab7;
+    color: white;
+    font-weight: 500; }
+  #showGoal .selectGoal:focus, #showPenalty .selectGoal:focus {
+    outline: none; }
+  #showGoal .selectGoal img, #showPenalty .selectGoal img {
+    height: 100%;
+    max-height: 30px;
+    padding-right: 20px; }
+
+#showGoal .labelInline, #showPenalty .labelInline {
+  width: 150px;
+  text-align: right;
+  padding-right: 20px; }
+
+#showGoal .playersRows select, #showPenalty .playersRows select {
+  width: 250px; }
+
+#myConfirm .teamName {
+  font-size: 15px;
+  font-weight: bold;
+  border-bottom: 1px solid black;
+  padding-top: 10px;
+  margin-bottom: 5px; }
+
+#myConfirm .playerRow {
+  font-size: 12px;
+  line-height: 20px; }
+  #myConfirm .playerRow input {
+    margin-right: 10px;
+    vertical-align: top; }
+
+#myConfirm .logoDialog {
+  width: 16.6666666%;
+  float: left; }
+  #myConfirm .logoDialog img {
+    width: 80%;
+    margin: 10%;
+    max-height: 80px; }
+
+.modal-body {
+  max-width: 100%;
+  max-height: 80%;
+  overflow: auto; }
+
+#ajaxLoading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgba(255, 255, 255, 0.9);
+  left: 0;
+  right: 0;
+  z-index: 10; }
+
+@-webkit-keyframes uil-ring-anim {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@-webkit-keyframes uil-ring-anim {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@-webkit-keyframes uil-ring-anim {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@keyframes uil-ring-anim {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+.uil-ring-css {
+  background: none;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  top: 40%;
+  -webkit-transform: translateY(-50%) !important;
+          transform: translateY(-50%) !important; }
+
+.uil-ring-css > div {
+  position: absolute;
+  display: block;
+  width: 40px;
+  height: 40px;
+  top: 5px;
+  left: 5px;
+  border-radius: 30px;
+  box-shadow: 0 1.5px 0 0 #aaaaaa;
+  -webkit-animation: uil-ring-anim 1s linear infinite;
+  animation: uil-ring-anim 1s linear infinite; }
+
+.liveScore {
+  color: black !important;
+  cursor: none; }
+  .liveScore .headerName {
+    position: relative;
+    font-size: 20px;
+    height: 10%; }
+    .liveScore .headerName .img img {
+      height: 100%;
+      max-width: 100%;
+      float: right; }
+  .liveScore .penalties {
+    height: 15%;
+    padding: 10px;
+    position: relative; }
+    .liveScore .penalties .time {
+      font-size: 140px;
+      font-weight: bold;
+      line-height: 100%;
+      text-align: center;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+              transform: translateX(-50%); }
+    .liveScore .penalties .awayPenalty {
+      float: right;
+      text-align: right;
+      right: 0;
+      left: auto; }
+    .liveScore .penalties > div {
+      position: absolute;
+      bottom: 0;
+      left: 0; }
+    .liveScore .penalties .penalty {
+      padding: 2px 15px;
+      font-size: 25px;
+      display: inline-block; }
+      .liveScore .penalties .penalty .penaltyNumber {
+        display: inline-block;
+        font-weight: bold; }
+        .liveScore .penalties .penalty .penaltyNumber:before {
+          content: "# "; }
+      .liveScore .penalties .penalty .penaltyTime {
+        display: inline-block; }
+  .liveScore .logo {
+    width: 100%;
+    height: 50%; }
+  .liveScore .teamName {
+    font-size: 50px;
+    text-align: center;
+    font-weight: bold;
+    max-height: 25%;
+    overflow: hidden; }
+  .liveScore .mainRow .teamRow .logo {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain; }
+  .liveScore .periodName {
+    font-size: 35px;
+    text-align: center;
+    font-weight: bold; }
+  .liveScore .score {
+    font-size: 350px;
+    font-weight: bold;
+    text-align: center; }
+  .liveScore .shots {
+    font-size: 25px;
+    text-align: center; }
+  .liveScore .overlayBeforeStart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 1;
+    -webkit-transition: opacity 2s ease-in-out;
+    transition: opacity 2s ease-in-out; }
+  .liveScore .goal .overlay, .liveScore .penalty .overlay {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    -webkit-transition: opacity 2s ease-in-out;
+    transition: opacity 2s ease-in-out;
+    opacity: 1;
+    -webkit-transition: 1s ease-in;
+    transition: 1s ease-in; }
+  .liveScore .goal .goalDiv, .liveScore .goal .penaltyDiv, .liveScore .penalty .goalDiv, .liveScore .penalty .penaltyDiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: 200px;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    background-color: white;
+    opacity: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    -webkit-transition: 1s ease-in;
+    transition: 1s ease-in; }
+    .liveScore .goal .goalDiv .header, .liveScore .goal .penaltyDiv .header, .liveScore .penalty .goalDiv .header, .liveScore .penalty .penaltyDiv .header {
+      width: 100%;
+      height: 50px;
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      padding: 10px;
+      border-bottom: 1px solid black; }
+    .liveScore .goal .goalDiv .body, .liveScore .goal .penaltyDiv .body, .liveScore .penalty .goalDiv .body, .liveScore .penalty .penaltyDiv .body {
+      width: 100%;
+      height: 150px; }
+      .liveScore .goal .goalDiv .body .photo, .liveScore .goal .goalDiv .body .content, .liveScore .goal .penaltyDiv .body .photo, .liveScore .goal .penaltyDiv .body .content, .liveScore .penalty .goalDiv .body .photo, .liveScore .penalty .goalDiv .body .content, .liveScore .penalty .penaltyDiv .body .photo, .liveScore .penalty .penaltyDiv .body .content {
+        display: inline-block; }
+      .liveScore .goal .goalDiv .body .photo, .liveScore .goal .penaltyDiv .body .photo, .liveScore .penalty .goalDiv .body .photo, .liveScore .penalty .penaltyDiv .body .photo {
+        padding: 10px;
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        position: relative;
+        float: left; }
+        .liveScore .goal .goalDiv .body .photo img, .liveScore .goal .penaltyDiv .body .photo img, .liveScore .penalty .goalDiv .body .photo img, .liveScore .penalty .penaltyDiv .body .photo img {
+          position: relative;
+          width: 100%;
+          height: 100%; }
+      .liveScore .goal .goalDiv .body .content, .liveScore .goal .penaltyDiv .body .content, .liveScore .penalty .goalDiv .body .content, .liveScore .penalty .penaltyDiv .body .content {
+        width: 350px;
+        height: 150px; }
+        .liveScore .goal .goalDiv .body .content h1, .liveScore .goal .goalDiv .body .content h2, .liveScore .goal .goalDiv .body .content h3, .liveScore .goal .penaltyDiv .body .content h1, .liveScore .goal .penaltyDiv .body .content h2, .liveScore .goal .penaltyDiv .body .content h3, .liveScore .penalty .goalDiv .body .content h1, .liveScore .penalty .goalDiv .body .content h2, .liveScore .penalty .goalDiv .body .content h3, .liveScore .penalty .penaltyDiv .body .content h1, .liveScore .penalty .penaltyDiv .body .content h2, .liveScore .penalty .penaltyDiv .body .content h3 {
+          margin: 0;
+          padding: 0; }
+        .liveScore .goal .goalDiv .body .content h1, .liveScore .goal .penaltyDiv .body .content h1, .liveScore .penalty .goalDiv .body .content h1, .liveScore .penalty .penaltyDiv .body .content h1 {
+          font-size: 20px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          margin-top: 5px; }
+        .liveScore .goal .goalDiv .body .content h2, .liveScore .goal .penaltyDiv .body .content h2, .liveScore .penalty .goalDiv .body .content h2, .liveScore .penalty .penaltyDiv .body .content h2 {
+          font-size: 17px;
+          margin-bottom: 5px; }
+        .liveScore .goal .goalDiv .body .content h3, .liveScore .goal .penaltyDiv .body .content h3, .liveScore .penalty .goalDiv .body .content h3, .liveScore .penalty .penaltyDiv .body .content h3 {
+          font-size: 13px; }
+        .liveScore .goal .goalDiv .body .content .logo, .liveScore .goal .penaltyDiv .body .content .logo, .liveScore .penalty .goalDiv .body .content .logo, .liveScore .penalty .penaltyDiv .body .content .logo {
+          max-height: 50px;
+          max-width: 50px;
+          position: absolute;
+          bottom: 5;
+          right: 5; }
+          .liveScore .goal .goalDiv .body .content .logo img, .liveScore .goal .penaltyDiv .body .content .logo img, .liveScore .penalty .goalDiv .body .content .logo img, .liveScore .penalty .penaltyDiv .body .content .logo img {
+            max-height: 50px;
+            max-width: 50px;
+            height: auto; }
+  .liveScore .goal .upDown, .liveScore .penalty .upDown {
+    -webkit-transform: translate(-50%, -500%);
+            transform: translate(-50%, -500%); }
+  .liveScore .goal .overlayHide, .liveScore .penalty .overlayHide {
+    opacity: 0; }
+
+@font-face {
+  font-family: 'MyWebFont';
+  src: url("../fonts/Ubuntu-Regular.ttf") format("truetype"); }
+
+.header {
+  color: #000000; }
+
+body {
+  font-family: 'MyWebFont' !important;
+  background-size: 100% 100%;
+  background-repeat: no-repeat; }
+
+#navbar {
+  margin-right: 15px; }
+
+.container {
+  position: relative; }
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+  width: 12px; }
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px; }
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.9);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); }
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: black; }

@@ -1,0 +1,61 @@
+<html>
+@@include('parts/header.html')
+	<body>
+		@@include('parts/navbar.html', {
+			"backText" : "Výber ihriska",
+			"backHref" : "./location.html"
+		})
+		<div class="container" ng-app="seasonTournamentMatches" ng-controller="seasonTournamentMatchesController">
+			@@include('parts/ajaxLoading.html')
+			<div class="header row text-center">
+				<h1>Výber zápasu</h1>
+			</div>
+			<div class="row">
+				<div class="tournament-reload">
+					<div ng-click="reloadMatches()" class="reloadButton">
+						<img src="../images/reload.svg" alt="">
+					</div>
+				</div>
+			</div>
+			<div class="row tournament-chooser" >
+				<div class="tournament-button col-sm-12 col-md-6 col-lg-4" ng-repeat= "x in seasonTournamentMatches">
+					<div ng-click="chooseTournamentMatch(x)" class="element">
+						<div class="matchRow row">
+							<div class="col-xs-12">
+								<h5>{{x.round.name}}</h5>
+							</div>
+							<div class="col-xs-12">
+								<h4>{{x.startTime}}</h4>
+							</div>
+							<div class="col-xs-12">
+								<div class="row imgHolder">
+									<div class="col-xs-5">
+										<img data-ng-src="{{x.homeTeam.logo.path}}" alt="">
+									</div>
+									<div class="col-xs-2 delimeter">
+										:
+									</div>
+									<div class="col-xs-5">
+										<img data-ng-src="{{x.awayTeam.logo.path}}" alt="">
+									</div>	
+								</div>
+							</div>
+							<div class="col-xs-5 teamName">
+								<h3>{{x.homeTeam.team.name}}</h3>
+							</div>
+							<div class="col-xs-5 col-xs-offset-2 teamName">
+								<h3>{{x.awayTeam.team.name}}</h3>
+							</div>
+						</div>
+						
+						<img data-ng-src="{{x.logo}}" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		@@include('parts/errorModal.html')
+	</body>
+
+	@@include('parts/footer.html')
+</html>

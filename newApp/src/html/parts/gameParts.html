@@ -1,0 +1,41 @@
+<div id="showPeriod" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title header" >Výber hracej časti</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text confirmBody">
+          <div class="container-fluid">
+            <div class="row timeRow">
+              <div class="col-xs-12">
+                <h2>Nastavenie času</h2>
+              </div>
+              <div class="col-xs-6 col-xs-offset-3 selectTime">
+                <div class="inputs">
+                  <input type="number" name="minutes" class="form-control" min="0" max="59" placeholder="mm">
+                  :
+                  <input type="number" name="seconds" class="form-control" min="0" max="59" placeholder="ss">
+                </div>
+              </div>
+            </div>
+            <div class="row periodsRow">
+              <div class="col-xs-12">
+                <h2>Výber tretiny</h2>
+              </div>
+              <div class="col-xs-6 col-xs-offset-3">
+                <select name="selectPeriod" id="selectPeriod" class="form-control">
+                </select>
+              </div>
+            </div>
+          </div>
+        </p>
+      </div>
+      <div class="modal-footer">
+          <button class="cancelButton" type="button" class="btn btn-default" data-dismiss="modal">Zrušiť</button>
+        <button id="confirmYes" type="button" class="btn btn-primary" ng-click="confirmPeriod()">Potvrdiť</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

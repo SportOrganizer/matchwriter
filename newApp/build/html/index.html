@@ -1,0 +1,99 @@
+<html>
+	<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+  <script>require('../js/libs/angular.min')</script>
+  <script>
+      window.jQuery = window.$ = require('../js/libs/jquery.min');
+  </script>
+  <script>require('../js/libs/ui-bootstrap.min')</script>
+  <script>require('../js/libs/bootstrap.min')</script>
+</head>
+	<body>
+		<div class="container">
+  <!-- Static navbar -->
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">MatchWriter</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav startGameHandling">
+          <li class="active">
+            <a href="./index.html">Domov</a>
+          </li>
+          <li class="disabled">
+            <a id="backButton" href="@@backHref">
+              <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Späť
+            </a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right rightMenu">
+          <li class="dropdown">
+            <a href="#" sendIpc="liveScore.html">Zobraziť projektor</a>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+  </nav>
+</div>
+
+		<div class="container" ng-app="seasonTournaments" ng-controller="seasonTournament">
+			<div id="ajaxLoading">
+	<div class='uil-ring-css' style='transform:scale(1);'>
+		<div></div>
+	</div>
+</div>
+			<div class="header row text-center">
+				<h1>Výber turnaja</h1>
+			</div>
+			<div class="row">
+				<div class="tournament-reload">
+					<div ng-click="reloadTournaments()" class="reloadButton">
+						<img src="../images/reload.svg" alt="">
+					</div>
+				</div>
+			</div>
+			<div class="row tournament-chooser" >
+				<div class="tournament-button col-xs-6 col-sm-4 col-md-3 col-lg-2" ng-repeat= "x in seasonTournaments">
+					<div ng-click="chooseTournament(x)" class="element">
+						<div class="header">
+							<h3><b>{{x.name}}</b></h3>
+						</div>
+						<div class="img" ng-style="{'background-image':'url('+ x.logo.path +')'}" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="errorWindow" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 id="errorHeader" class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <p id="errorBody"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+	</body>
+
+	<script>require('../js/bundle')</script> 
+</html>

@@ -1,0 +1,39 @@
+<html>
+	@@include('parts/header.html')
+	<body>
+		@@include('parts/navbar.html', {
+			"homeClass": "active",
+			"backClass": "disabled",
+			"backText" : "Späť"
+		})
+
+		<div class="container" ng-app="seasonTournaments" ng-controller="seasonTournament">
+			@@include('parts/ajaxLoading.html')
+			<div class="header row text-center">
+				<h1>Výber turnaja</h1>
+			</div>
+			<div class="row">
+				<div class="tournament-reload">
+					<div ng-click="reloadTournaments()" class="reloadButton">
+						<img src="../images/reload.svg" alt="">
+					</div>
+				</div>
+			</div>
+			<div class="row tournament-chooser" >
+				<div class="tournament-button col-xs-6 col-sm-4 col-md-3 col-lg-2" ng-repeat= "x in seasonTournaments">
+					<div ng-click="chooseTournament(x)" class="element">
+						<div class="header">
+							<h3><b>{{x.name}}</b></h3>
+						</div>
+						<div class="img" ng-style="{'background-image':'url('+ x.logo.path +')'}" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		@@include('parts/errorModal.html')
+	</body>
+
+	@@include('parts/footer.html')
+</html>
