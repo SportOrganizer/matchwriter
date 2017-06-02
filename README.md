@@ -1,5 +1,5 @@
 # Desktop match management matchWriter v1.0
-Aplikácia je vytvorená pre poiadavky tímového projektu. Jedná sa o desktopovú aplikáciu, kde jej verzia, ktorú je moné spúša sa nachádza v prieèinku newApp-win32-x64.
+Aplikácia je vytvorená pre poiadavky tímového projektu. Jedná sa o desktopovú aplikáciu, kde jej verzia, ktorú je moné spúštat sa nachádza v prieèinku newApp-win32-x64.
 
 ## Poiadavky pre kompiláciu
 	-npm
