@@ -1,15 +1,19 @@
 # Desktop match management matchWriter v1.0
+Aplikácia je vytvorená pre poiadavky tímového projektu. Jedná sa o desktopovú aplikáciu, kde jej verzia, ktorú je moné spúša sa nachádza v prieèinku newApp-win32-x64.
 
-## Requirements
+## Poiadavky pre kompiláciu
 	-npm
 	-electron
 
-## Installation
+## Inštalácia potrebnıch balíkov (dependencies)
 	-npm install
 
-## Run
-	-gulp (run to build BUILD folder)
-	-npm start (run web dev app)
+## Spustenie a kompilovanie
+	-gulp (builduje prieèinok SRC do prieèinky BUILD, kde sú zdrojové kódy aplikácie)
+	-npm start (spustí aplikáciu v debug móde)
+
+## Kompilácia do desktopovej aplikácie
+	- electron-packager newApp (vytvorí desktopovú aplikáciu) 
 
 ### Used libraries
 	- AngularJS
