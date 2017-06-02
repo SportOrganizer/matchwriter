@@ -4,4 +4,8 @@ ipc.on('selectedTournament',function(event, data){
 	if(selectedTournament != null) {
 		defaultWin.loadURL(`file://${__dirname}/html/location.html`);
 	}
+
+	for(var j in windows) {
+		windows[j].webContents.send("selectThisTournament", selectedTournament);
+	}
 });

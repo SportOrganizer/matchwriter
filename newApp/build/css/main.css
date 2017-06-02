@@ -502,6 +502,9 @@ body {
 .container {
   position: relative; }
 
+.clickElement {
+  cursor: pointer; }
+
 /* Let's get this party started */
 ::-webkit-scrollbar {
   width: 12px; }
@@ -514,8 +517,8 @@ body {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.9);
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5); }
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2); }
 
 ::-webkit-scrollbar-thumb:window-inactive {
   background: black; }

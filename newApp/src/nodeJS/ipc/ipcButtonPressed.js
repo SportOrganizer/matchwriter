@@ -29,7 +29,7 @@ ipc.on('buttonPressed',function(event, data){
 						fullscreen: true
 					});
 
-					nextWindow.setMenu(null);
+					//nextWindow.setMenu(null);
 					
 					nextWindow.displayId = externalDisplays[i].id;
 
@@ -44,6 +44,7 @@ ipc.on('buttonPressed',function(event, data){
 
 
 					nextWindow.loadURL(`file://${__dirname}/html/` + urlToOpen)
+					nextWindow.setMenu(null); 
 
 					windows.push(nextWindow)
 				}

@@ -8,6 +8,9 @@ liveScoreApp.factory('TimerService', ['$interval', '$rootScope',   function($int
 
         this.initialize = function(currTime, cname) {
             name = cname;
+
+            if(currTime == null)
+                return;
             var splitTime = currTime.split(":");
 
             //Vypočítam milisekundy z minút

@@ -2,7 +2,7 @@ var mainSettings = {
 	server: 	'http://sad.upc.uniba.sk:8080/',
 	core: 		'http://sad.upc.uniba.sk:8080/core/',
 	documents:  'http://sad.upc.uniba.sk:8080/core/document/',
-	floorball:  'http://sad.upc.uniba.sk:8080/floorball/',
+	floorball: 	'http://sad.upc.uniba.sk:8080/floorball/'
 }
 
 var names = {
@@ -12,7 +12,7 @@ var names = {
 var urls = {
 	defaultTournamentLogo: 		"../images/defaultTournament.png",
 	defaultLocation: 			"../images/defaultPitch.png",
-	defaultPlayer: 				"../images/defaultPlayer.png",
+	defaultPlayer:              "../images/defaultPlayer.png",
 	documents: 					mainSettings.documents,
 	seasonTournaments: 			mainSettings.core + 'seasontournament/',
 	seasonTournamentGroup: 		mainSettings.core + 'seasontournamentgroup/',

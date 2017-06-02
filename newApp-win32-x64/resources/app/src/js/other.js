@@ -43,14 +43,14 @@ function checkLogo(oldUrl, replacement) {
                 error: function() {
                     //showError("Upozornenie!","Nastala neočakávaná chyba na serveri.<br> Je možné, že program nebude fungovať správne.");
                     console.log("Chyba načítana obrázkov zo servera!");
-
+                    console.log(oldUrl);
                     oldUrl = replacement;       
                     
                 }
             }
         );
     }
-    console.log(oldUrl);
+
     return oldUrl;
 }
 
@@ -114,3 +114,16 @@ function showGoal() {
         $(".goalDiv").addClass("upDown"); $(".goal .overlay").addClass("overlayHide");
     }, 7000);
 }
+
+$("#showAbout").click(function() {
+    var header = "MatchWriter";
+    var body =  "<b>Autor: </b> Kristián Stroka<br>";
+    body +=     "<b>Kontakt: </b> k.stroka@gmail.com";
+    body +=     "<hr>";
+    body +=     "<b>Verzia v1.0 </b> - aplikácia bola vytvorená za účelom tímového projektu na FEI STU. Jedná sa o prvú veriu, ktorá je ešte len v základnej verzii.";
+    body +=     "<hr>";
+    body +=     "Zdrojové kódy je možné prezrieť si v repozitári git: (https://github.com/SportOrganizer/matchwriter)";
+    body +=     "<hr>";
+    body +=     "V prípade, že chcete používať projektor (zobrazenie pre divákov), je ho potrebné aktivovať ešte <b>pred</b> začatím zápasu!!!";
+    showError(header, body);
+});

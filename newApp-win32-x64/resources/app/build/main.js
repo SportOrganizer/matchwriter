@@ -34,7 +34,7 @@ app.on('ready', _ => {
 	})
 
 	defaultWin.maximize()
-	defaultWin.setMenu(null);
+	//defaultWin.setMenu(null);
 
 	windows.push(defaultWin)
 })
@@ -121,7 +121,7 @@ ipc.on('buttonPressed',function(event, data){
 						fullscreen: true
 					});
 
-					nextWindow.setMenu(null);
+					//nextWindow.setMenu(null);
 					
 					nextWindow.displayId = externalDisplays[i].id;
 
@@ -136,7 +136,8 @@ ipc.on('buttonPressed',function(event, data){
 
 
 					nextWindow.loadURL(`file://${__dirname}/html/` + urlToOpen)
-
+					nextWindow.setMenu(null);
+					
 					windows.push(nextWindow)
 				}
 			}
@@ -223,6 +224,10 @@ ipc.on('selectedTournament',function(event, data){
 	if(selectedTournament != null) {
 		defaultWin.loadURL(`file://${__dirname}/html/location.html`);
 	}
+
+	for(var j in windows) {
+		windows[j].webContents.send("selectThisTournament", selectedTournament);
+	}
 });
 ipc.on('selectedTournamentLocation',function(event, data){
 	selectedTournamentLocation = data.location;
@@ -245,6 +250,11 @@ ipc.on('sendData',function(event, data){
 	}
 });
 
+ipc.on('sendSelectedTournament',function(event, data){
+	for(var j in windows) {
+		windows[j].webContents.send("selectThisTournament", selectedTournament);
+	}
+});
 ipc.on('webSocket',function(event, data){
 	sendName(data);
 });

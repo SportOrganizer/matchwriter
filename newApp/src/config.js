@@ -2,6 +2,7 @@ var mainSettings = {
 	server: 	'http://sad.upc.uniba.sk:8080/',
 	core: 		'http://sad.upc.uniba.sk:8080/core/',
 	documents:  'http://sad.upc.uniba.sk:8080/core/document/',
+	floorball: 	'http://sad.upc.uniba.sk:8080/floorball/'
 }
 
 var names = {
@@ -11,6 +12,7 @@ var names = {
 var urls = {
 	defaultTournamentLogo: 		"../images/defaultTournament.png",
 	defaultLocation: 			"../images/defaultPitch.png",
+	defaultPlayer:              "../images/defaultPlayer.png",
 	documents: 					mainSettings.documents,
 	seasonTournaments: 			mainSettings.core + 'seasontournament/',
 	seasonTournamentGroup: 		mainSettings.core + 'seasontournamentgroup/',
@@ -18,7 +20,7 @@ var urls = {
 	seasonTournamentLocations: 	'/location/',
 	seasonTournamentPeriod: 	'/period/',
 	seasonTournamentMatchPenalty:'/stpenaltysettings/',
-	seasonTournamentMatchGoalType: '/goaltype/',
+	seasonTournamentMatchGoalType: mainSettings.floorball + 'goaltype/',
 	competitorTeam: 			mainSettings.core + 'competitorteam/',
 	setting: 					'/stsetting/',
 	post: {
@@ -79,41 +81,9 @@ var activities = [
 	}
 ]
 
-var testData = {
-	goalTypes: [
-		{
-			id:1,
-			name:"Rovnovážny stav",
-			cancelPenalty:1
-		},
-		{
-			id:2,
-			name:"Presilová hra",
-			cancelPenalty:1
-		},
-		{
-			id:3,
-			name:"Oslabenie",
-			cancelPenalty:1
-		},
-		{
-			id:4,
-			name:"Trestné strieľanie",
-			cancelPenalty:0
-		},
-		{
-			id:5,
-			name:"Technický gól",
-			cancelPenalty:1
-		}
-	],
-	seasonTournamentTimeOutLength: 5
-}
-
 var configuration = {
 	server: 	mainSettings,
 	urls: 		urls,
-	testData: 	testData,
 	activities: activities,
 	names:      names
 }

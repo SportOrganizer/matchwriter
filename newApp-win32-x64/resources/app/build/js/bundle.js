@@ -114,7 +114,7 @@ ipc.on("getGamePreview", function(evt, match) {
     $scope.$apply(function() {
         $scope.selectedMatch = match;
         $(".overlayBeforeStart").css("opacity",0);
-        console.log($scope.selectedMatch);
+        ipc.send('sendSelectedTournament', {});  
     });
 })
 ipc.on("goalTypes", function(evt, goalTypes) {
@@ -317,12 +317,12 @@ ipc.on('newData',function(event, data){
 
         case "shot":
             $scope.$apply(function() {
-                switch(data.type) {
+                switch(data.data.type) {
                     case "home":
-                        $scope.homeShots = data.shots;
+                        $scope.homeShots = data.data.shots;
                         break;
                     case "away":
-                        $scope.awayShots = data.shots;
+                        $scope.awayShots = data.data.shots;
                         break;
                 }
             });
@@ -427,6 +427,25 @@ ipc.on("seasonTournaments", function(evt, tournaments) {
         }
     });
 })
+ipc.on('selectThisTournament',function(event, data){
+    var appElement = document.querySelector('[ng-app=liveScore]');
+    var $scope = angular.element(appElement).scope();
+
+    if($scope == null)
+        return;
+
+    $scope.$apply(function() {
+    	console.log(data);
+    	if(data == null)
+    		return;
+
+        if(data.logo.path == null)
+            return;
+        
+        $scope.selectedTournament = data.logo.path;
+    });
+});
+
 ipc.on("websocket", function(evt, data) {
     var appElement = document.querySelector('[ng-app=liveScore]');
     var $scope = angular.element(appElement).scope();
@@ -542,8 +561,10 @@ liveScoreApp.controller('liveScoreController', function($rootScope, $scope, Time
 	$scope.penaltyPhoto = null;
 	$scope.period = null;
 	$scope.timeOutLength = null;
+	$scope.selectedTournament = config.urls.defaultTournamentLogo;
 	
 	ipc.send('getGamePreview', {});
+	ipc.send('sendSelectedTournament', {});
 
 	$scope.play = function() {
 		$scope.mainTimer.startTime();
@@ -570,7 +591,7 @@ liveScoreApp.controller('liveScoreController', function($rootScope, $scope, Time
 	}
 	
 	$scope.timeOutHome = function() {
-		pause();
+		this.pause();
 		$scope.timeOutHome = false;
 		$scope.actualTimer = new TimerService();
 		$scope.actualTimer.initializeSeconds($scope.timeOutLength, "timeOut");
@@ -578,7 +599,7 @@ liveScoreApp.controller('liveScoreController', function($rootScope, $scope, Time
 	}
 
 	$scope.timeOutAway = function() {
-		pause();
+		this.pause();
 		$scope.timeOutAway = false;
 		$scope.actualTimer = new TimerService();
 		$scope.actualTimer.initializeSeconds($scope.timeOutLength, "timeOut");
@@ -664,10 +685,45 @@ liveScoreApp.controller('liveScoreController', function($rootScope, $scope, Time
 	});
 
 	$scope.$watch('selectedMatch', function(newValue, oldValue, scope) {
-		if($scope.selectedMatch == null)
+		if($scope.selectedMatch == null) {
         	$(".overlayBeforeStart").css("opacity",1);
-        else
+        	setTimeout(function() {
+			    $scope.homePlayers = null;
+				$scope.awayPlayers = null;
+				$scope.time = "00:00";
+				$scope.periodStart = null; //Keď pride data z main obrazovky o čase začiatku tretiny
+				$scope.homeScore = 0;
+				$scope.awayScore = 0;
+				$scope.homePenalties = [];
+				$scope.awayPenalties = [];
+				$scope.homeShots = 0;
+				$scope.awayShots = 0;
+				$scope.isRunning = false;
+				$scope.mainTimer = new TimerService();
+				$scope.actualTimer = $scope.mainTimer;
+				$scope.homePenaltyTimes = [];
+				$scope.awayPenaltyTimes = [];
+				$scope.appName = config.names.liveScore;
+				$scope.minutesPlayed = 0;
+				$scope.secondsPlayed = 0;
+				$scope.goalPlayer = null;
+				$scope.goalTeam = null;
+				$scope.goalPhoto = null;
+				$scope.assist1Player = null;
+				$scope.assist2Player = null;
+				$scope.penaltyPlayer = null;
+				$scope.penaltyType = null;
+				$scope.penaltyTeam = null;
+				$scope.penaltyPhoto = null;
+				$scope.period = null;
+				$scope.timeOutLength = null;
+				$scope.selectedTournament = config.urls.defaultTournamentLogo;
+			}, 1000);
+		}
+        else {
         	$(".overlayBeforeStart").css("opacity",0);
+        	ipc.send('sendSelectedTournament', {});  
+        }
 	});
 });
 
@@ -1625,6 +1681,9 @@ liveScoreApp.factory('TimerService', ['$interval', '$rootScope',   function($int
 
         this.initialize = function(currTime, cname) {
             name = cname;
+
+            if(currTime == null)
+                return;
             var splitTime = currTime.split(":");
 
             //Vypočítam milisekundy z minút
@@ -1851,14 +1910,14 @@ function checkLogo(oldUrl, replacement) {
                 error: function() {
                     //showError("Upozornenie!","Nastala neočakávaná chyba na serveri.<br> Je možné, že program nebude fungovať správne.");
                     console.log("Chyba načítana obrázkov zo servera!");
-
+                    console.log(oldUrl);
                     oldUrl = replacement;       
                     
                 }
             }
         );
     }
-    console.log(oldUrl);
+
     return oldUrl;
 }
 
@@ -1922,3 +1981,16 @@ function showGoal() {
         $(".goalDiv").addClass("upDown"); $(".goal .overlay").addClass("overlayHide");
     }, 7000);
 }
+
+$("#showAbout").click(function() {
+    var header = "MatchWriter";
+    var body =  "<b>Autor: </b> Kristián Stroka<br>";
+    body +=     "<b>Kontakt: </b> k.stroka@gmail.com";
+    body +=     "<hr>";
+    body +=     "<b>Verzia v1.0 </b> - aplikácia bola vytvorená za účelom tímového projektu na FEI STU. Jedná sa o prvú veriu, ktorá je ešte len v základnej verzii.";
+    body +=     "<hr>";
+    body +=     "Zdrojové kódy je možné prezrieť si v repozitári git: (https://github.com/SportOrganizer/matchwriter)";
+    body +=     "<hr>";
+    body +=     "V prípade, že chcete používať projektor (zobrazenie pre divákov), je ho potrebné aktivovať ešte <b>pred</b> začatím zápasu!!!";
+    showError(header, body);
+});

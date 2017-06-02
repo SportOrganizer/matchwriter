@@ -7,7 +7,7 @@
 					{{appName}}
 				</div>
 				<div class="col-xs-6 img">
-					<img src="../images/defaultTournament.png">
+					<img data-ng-src="{{selectedTournament}}">
 				</div>
 			</div>
 			<div class="row penalties">
@@ -30,7 +30,7 @@
 			<div class="row mainRow">
 				<div class="col-xs-4 teamRow">
 					<div class="row">
-						<div class="col-xs-12 logo" style="background-image: url('{{selectedMatch.homeTeam.logo.path}}');">
+						<div class="col-xs-12 logo" ng-style="{'background-image':'url(' + selectedMatch.homeTeam.logo.path + ')'}">
 						</div>
 						<div class="col-xs-12 teamName">
 							{{selectedMatch.homeTeam.team.fullName}}
@@ -46,13 +46,13 @@
 							{{homeScore}}:{{awayScore}}
 						</div>
 						<div class="col-xs-12 shots">
-							{{homeShots}} - {{homeShots}}
+							{{homeShots}} - {{awayShots}}
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-4 teamRow">
 					<div class="row">
-						<div class="col-xs-12 logo" style="background-image: url('{{selectedMatch.awayTeam.logo.path}}');">
+						<div class="col-xs-12 logo" ng-style="{'background-image':'url(' + selectedMatch.awayTeam.logo.path + ')'}">
 						</div>
 						<div class="col-xs-12 teamName">
 							{{selectedMatch.awayTeam.team.fullName}}

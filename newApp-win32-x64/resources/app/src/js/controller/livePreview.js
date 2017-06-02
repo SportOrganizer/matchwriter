@@ -31,8 +31,10 @@ liveScoreApp.controller('liveScoreController', function($rootScope, $scope, Time
 	$scope.penaltyPhoto = null;
 	$scope.period = null;
 	$scope.timeOutLength = null;
+	$scope.selectedTournament = config.urls.defaultTournamentLogo;
 	
 	ipc.send('getGamePreview', {});
+	ipc.send('sendSelectedTournament', {});
 
 	$scope.play = function() {
 		$scope.mainTimer.startTime();
@@ -59,7 +61,7 @@ liveScoreApp.controller('liveScoreController', function($rootScope, $scope, Time
 	}
 	
 	$scope.timeOutHome = function() {
-		pause();
+		this.pause();
 		$scope.timeOutHome = false;
 		$scope.actualTimer = new TimerService();
 		$scope.actualTimer.initializeSeconds($scope.timeOutLength, "timeOut");
@@ -67,7 +69,7 @@ liveScoreApp.controller('liveScoreController', function($rootScope, $scope, Time
 	}
 
 	$scope.timeOutAway = function() {
-		pause();
+		this.pause();
 		$scope.timeOutAway = false;
 		$scope.actualTimer = new TimerService();
 		$scope.actualTimer.initializeSeconds($scope.timeOutLength, "timeOut");
@@ -153,10 +155,45 @@ liveScoreApp.controller('liveScoreController', function($rootScope, $scope, Time
 	});
 
 	$scope.$watch('selectedMatch', function(newValue, oldValue, scope) {
-		if($scope.selectedMatch == null)
+		if($scope.selectedMatch == null) {
         	$(".overlayBeforeStart").css("opacity",1);
-        else
+        	setTimeout(function() {
+			    $scope.homePlayers = null;
+				$scope.awayPlayers = null;
+				$scope.time = "00:00";
+				$scope.periodStart = null; //Keď pride data z main obrazovky o čase začiatku tretiny
+				$scope.homeScore = 0;
+				$scope.awayScore = 0;
+				$scope.homePenalties = [];
+				$scope.awayPenalties = [];
+				$scope.homeShots = 0;
+				$scope.awayShots = 0;
+				$scope.isRunning = false;
+				$scope.mainTimer = new TimerService();
+				$scope.actualTimer = $scope.mainTimer;
+				$scope.homePenaltyTimes = [];
+				$scope.awayPenaltyTimes = [];
+				$scope.appName = config.names.liveScore;
+				$scope.minutesPlayed = 0;
+				$scope.secondsPlayed = 0;
+				$scope.goalPlayer = null;
+				$scope.goalTeam = null;
+				$scope.goalPhoto = null;
+				$scope.assist1Player = null;
+				$scope.assist2Player = null;
+				$scope.penaltyPlayer = null;
+				$scope.penaltyType = null;
+				$scope.penaltyTeam = null;
+				$scope.penaltyPhoto = null;
+				$scope.period = null;
+				$scope.timeOutLength = null;
+				$scope.selectedTournament = config.urls.defaultTournamentLogo;
+			}, 1000);
+		}
+        else {
         	$(".overlayBeforeStart").css("opacity",0);
+        	ipc.send('sendSelectedTournament', {});  
+        }
 	});
 });
 

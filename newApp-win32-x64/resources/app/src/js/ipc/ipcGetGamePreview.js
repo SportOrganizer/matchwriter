@@ -12,6 +12,6 @@ ipc.on("getGamePreview", function(evt, match) {
     $scope.$apply(function() {
         $scope.selectedMatch = match;
         $(".overlayBeforeStart").css("opacity",0);
-        console.log($scope.selectedMatch);
+        ipc.send('sendSelectedTournament', {});  
     });
 })

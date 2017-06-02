@@ -57,12 +57,12 @@ ipc.on('newData',function(event, data){
 
         case "shot":
             $scope.$apply(function() {
-                switch(data.type) {
+                switch(data.data.type) {
                     case "home":
-                        $scope.homeShots = data.shots;
+                        $scope.homeShots = data.data.shots;
                         break;
                     case "away":
-                        $scope.awayShots = data.shots;
+                        $scope.awayShots = data.data.shots;
                         break;
                 }
             });
