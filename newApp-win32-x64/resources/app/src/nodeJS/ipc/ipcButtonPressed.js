@@ -44,8 +44,8 @@ ipc.on('buttonPressed',function(event, data){
 
 
 					nextWindow.loadURL(`file://${__dirname}/html/` + urlToOpen)
-					nextWindow.setMenu(null);
-					
+					nextWindow.setMenu(null); 
+
 					windows.push(nextWindow)
 				}
 			}

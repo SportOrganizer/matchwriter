@@ -6,39 +6,30 @@
   "scripts": {
     "start": "electron ."
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "autoprefixer": "^6.7.7",
     "css-mqpacker": "^5.0.1",
     "cssnano": "^3.10.0",
     "electron-prebuilt": "^1.4.13",
-    "electron-packager": "^8.6.0",
-    "electron-url": "^0.0.1",
-    "gulp-coffee": "^2.3.4",
-    "gulp-concat": "^2.6.1",
+    "electron-url": "0.0.1",
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
     "gulp-deporder": "^1.1.0",
     "gulp-file-include": "^1.1.0",
     "gulp-htmlclean": "^2.7.14",
-    "gulp-newer": "^1.3.0",
     "gulp-imagemin": "^3.2.0",
+    "gulp-newer": "^1.3.0",
     "gulp-order": "^1.1.1",
     "gulp-postcss": "^6.4.0",
     "gulp-sass": "^3.1.0",
-    "gulp-uglify": "^2.1.2",
     "gulp-strip-debug": "^1.1.0",
+    "gulp-uglify": "^2.1.2",
     "jquery": "^3.2.1",
     "postcss-assets": "^4.1.0",
     "sockjs-client": "^1.1.4",
-    "sockjs-client-node": "^1.0.0",
-    "stompjs": "^2.3.3",
-    "stomp-client": "^0.9.0",
-    "stomp": "^0.1.1",
-    "ws": "^3.0.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+    "stompjs": "^2.3.3"
+  }
 }

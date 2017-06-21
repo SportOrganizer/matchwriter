@@ -34,7 +34,7 @@ app.on('ready', _ => {
 	})
 
 	defaultWin.maximize()
-	//defaultWin.setMenu(null);
+	defaultWin.setMenu(null);
 
 	windows.push(defaultWin)
 })

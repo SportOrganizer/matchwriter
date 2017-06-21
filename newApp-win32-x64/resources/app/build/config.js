@@ -12,6 +12,7 @@ var names = {
 var urls = {
 	defaultTournamentLogo: 		"../images/defaultTournament.png",
 	defaultLocation: 			"../images/defaultPitch.png",
+	defaultPlayer:              "../images/defaultPlayer.png",
 	documents: 					mainSettings.documents,
 	seasonTournaments: 			mainSettings.core + 'seasontournament/',
 	seasonTournamentGroup: 		mainSettings.core + 'seasontournamentgroup/',
